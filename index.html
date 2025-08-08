@@ -8,13 +8,27 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: url('splash-bg-compressed.png') no-repeat center center fixed;
+      background-image: url('splash-bg-compressed.png');
       background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       margin: 0;
       padding: 0;
       color: #fff;
       text-align: center;
+      background-color: rgba(0, 0, 0, 0.3);
+      background-blend-mode: darken;
     }
+
+    @media (max-width: 768px) {
+      body {
+        background-size: contain;
+        background-position: top;
+        background-attachment: scroll;
+      }
+    }
+
     .overlay {
       background-color: rgba(0, 0, 0, 0.55);
       padding: 60px 20px;
