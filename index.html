@@ -7,6 +7,12 @@
   <title>CAPI – 100% Natural</title>
   <link rel="icon" href="favicon.png" type="image/png">
   <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       background-image: url('splash-bg-compressed.png');
@@ -14,8 +20,6 @@
       background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
-      margin: 0;
-      padding: 0;
       color: #fff;
       text-align: center;
       background-color: rgba(0, 0, 0, 0.10);
@@ -23,40 +27,45 @@
     }
 
     @media (max-width: 1024px) {
-    body {
-    background-size: cover;
-    background-position: center;
-    background-attachment: scroll;
-  }
-}
+      body {
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+      }
+    }
 
-    overlay {
-  background-color: rgba(0, 0, 0, 0.55);
-  padding: 60px 20px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.55);
+      padding: 60px 20px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
     h1 {
       font-size: 36px;
       margin-bottom: 20px;
       color: #fff8e1;
     }
+
     p {
       font-size: 18px;
       margin-bottom: 40px;
     }
+
     .flags a {
       margin: 0 15px;
       display: inline-block;
       font-size: 48px;
       text-decoration: none;
     }
+
     .flags a:hover {
       transform: scale(1.1);
       transition: transform 0.2s ease-in-out;
     }
+
     footer {
       margin-top: 40px;
       font-size: 14px;
