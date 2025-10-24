@@ -34,13 +34,13 @@
       justify-content: center;
     }
 
-    /* Texto más grande */
+    /* Texto: versión aprobada */
     h1 {
       color: #fff8e1;
       margin: 0 0 14px;
-      line-height: 1.12; /* un poco más aire */
+      line-height: 1.12;
       font-weight: 700;
-      font-size: clamp(26px, 6vw, 42px); /* más grande en móviles y pantallas */
+      font-size: clamp(26px, 6vw, 42px);
     }
 
     p {
@@ -49,15 +49,42 @@
       margin: 0 0 20px;
     }
 
-    /* Banderas EXACTAMENTE como al principio */
+    /* Banderas (48px como al principio) */
+    .flags { margin-top: 10px; }
     .flags a {
       margin: 0 15px;
       display: inline-block;
-      font-size: 48px; /* valor original */
+      font-size: 48px;
       text-decoration: none;
       transition: transform 0.2s ease-in-out;
+      will-change: transform;
+      transform-origin: 50% 100%; /* anclar en la “asta” imaginaria */
+      animation: wave 2.2s ease-in-out infinite;
+      /* sutil sombra para “separarlas” del fondo */
+      filter: drop-shadow(0 1px 0 rgba(0,0,0,.15));
     }
-    .flags a:hover { transform: scale(1.1); }
+    .flags a:hover { transform: scale(1.08); }
+
+    /* Desfase para efecto natural */
+    .flags a.flag-1 { animation-delay: 0s;   }
+    .flags a.flag-2 { animation-delay: .25s; }
+    .flags a.flag-3 { animation-delay: .5s;  }
+    .flags a.flag-4 { animation-delay: .75s; }
+
+    /* Animación de “flameo” (balanceo + vaivén) */
+    @keyframes wave {
+      0%   { transform: rotate(-2deg) translateY(0px); }
+      25%  { transform: rotate(1.5deg) translateY(-2px); }
+      50%  { transform: rotate(2deg) translateY(0px); }
+      75%  { transform: rotate(-1.5deg) translateY(2px); }
+      100% { transform: rotate(-2deg) translateY(0px); }
+    }
+
+    /* Accesibilidad: respeta “reducir movimiento” del sistema */
+    @media (prefers-reduced-motion: reduce) {
+      .flags a { animation: none; }
+      .flags a:hover { transform: none; }
+    }
 
     footer {
       margin-top: 40px;
@@ -74,10 +101,10 @@
     <p>Кош келдиңиз. Тилиңизди тандаңыз:</p>
 
     <div class="flags">
-      <a href="kg/">🇰🇬</a>
-      <a href="ru/">🇷🇺</a>
-      <a href="es/">🇪🇸</a>
-      <a href="en/">🇬🇧</a>
+      <a class="flag-1" href="kg/">🇰🇬</a>
+      <a class="flag-2" href="ru/">🇷🇺</a>
+      <a class="flag-3" href="es/">🇪🇸</a>
+      <a class="flag-4" href="en/">🇬🇧</a>
     </div>
 
     <footer>
