@@ -20,51 +20,73 @@
       background-color: rgba(0,0,0,0.10);
       background-blend-mode: darken;
     }
-    @media (max-width: 1024px){ body{ background-attachment: scroll; } }
 
-    .overlay{
-      background-color: rgba(0,0,0,.55);
+    @media (max-width: 1024px) {
+      body { background-attachment: scroll; }
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.55);
       min-height: 100svh;
       padding: max(36px, env(safe-area-inset-top)) 20px max(16px, env(safe-area-inset-bottom));
-      display: flex; flex-direction: column; justify-content: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    /* Texto: versión aprobada */
-    h1{
-      color:#fff8e1; margin:0 0 14px; line-height:1.12; font-weight:700;
+    h1 {
+      color: #fff8e1;
+      margin: 0 0 14px;
+      line-height: 1.12;
+      font-weight: 700;
       font-size: clamp(26px, 6vw, 42px);
     }
-    p{ font-size: clamp(16px,4vw,20px); line-height:1.25; margin:0 0 20px; }
 
-    /* Banderas (imágenes) 48px con ondeo 3D visible (rápido y fluido) */
-    .flags{ margin-top:10px; display:flex; justify-content:center; gap:16px; }
-    .flag{
-      width:48px; height:auto; display:inline-block;
-      transform-origin: 0% 50%;             /* “asta” a la izquierda */
-      image-rendering: auto;
-      filter: drop-shadow(0 1px 0 rgba(0,0,0,.18));
-      animation: wave3d 1.2s ease-in-out infinite;
+    p {
+      font-size: clamp(16px, 4vw, 20px);
+      line-height: 1.25;
+      margin: 0 0 20px;
+    }
+
+    /* Banderas con efecto ondeo 3D realista (emoji) */
+    .flags {
+      margin-top: 10px;
+    }
+
+    .flags a {
+      margin: 0 15px;
+      display: inline-block;
+      font-size: 48px;           /* tamaño original */
+      text-decoration: none;
+      transform-origin: 0% 50%;  /* fija el “palo” de la bandera */
+      animation: wave3d 1.1s ease-in-out infinite;
       will-change: transform;
     }
-    .flag:nth-child(2){ animation-delay: .12s; }
-    .flag:nth-child(3){ animation-delay: .24s; }
-    .flag:nth-child(4){ animation-delay: .36s; }
 
-    /* Ondeado 3D sin arrugas (sin filtros SVG) */
-    @keyframes wave3d{
+    /* Desfase natural */
+    .flags a:nth-child(2) { animation-delay: 0.12s; }
+    .flags a:nth-child(3) { animation-delay: 0.24s; }
+    .flags a:nth-child(4) { animation-delay: 0.36s; }
+
+    /* Animación 3D sin distorsión */
+    @keyframes wave3d {
       0%   { transform: perspective(500px) rotateY(0deg)   skewY(0deg)   translateY(0); }
-      25%  { transform: perspective(500px) rotateY(9deg)   skewY(1.2deg) translateY(-1px); }
+      25%  { transform: perspective(500px) rotateY(12deg)  skewY(1.2deg) translateY(-1px); }
       50%  { transform: perspective(500px) rotateY(0deg)   skewY(0.6deg) translateY(0); }
-      75%  { transform: perspective(500px) rotateY(-9deg)  skewY(-1.2deg) translateY(1px); }
+      75%  { transform: perspective(500px) rotateY(-12deg) skewY(-1.2deg) translateY(1px); }
       100% { transform: perspective(500px) rotateY(0deg)   skewY(0deg)   translateY(0); }
     }
 
-    /* Accesibilidad */
-    @media (prefers-reduced-motion: reduce){
-      .flag{ animation:none; transform:none; filter:none; }
+    /* Respeta la accesibilidad en iOS (reduce motion) */
+    @media (prefers-reduced-motion: reduce) {
+      .flags a { animation: none; transform: none; }
     }
 
-    footer{ margin-top:40px; font-size:14px; color:#ddd; }
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #ddd;
+    }
   </style>
 </head>
 <body>
@@ -75,10 +97,10 @@
     <p>Кош келдиңиз. Тилиңизди тандаңыз:</p>
 
     <div class="flags">
-      <a href="kg/"><img class="flag" src="flags/kg.svg" alt="Кыргызстан"></a>
-      <a href="ru/"><img class="flag" src="flags/ru.svg" alt="Россия"></a>
-      <a href="es/"><img class="flag" src="flags/es.svg" alt="España"></a>
-      <a href="en/"><img class="flag" src="flags/gb.svg" alt="United Kingdom"></a>
+      <a href="kg/">🇰🇬</a>
+      <a href="ru/">🇷🇺</a>
+      <a href="es/">🇪🇸</a>
+      <a href="en/">🇬🇧</a>
     </div>
 
     <footer>
