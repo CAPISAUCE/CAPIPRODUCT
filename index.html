@@ -21,9 +21,7 @@
       background-blend-mode: darken;
     }
 
-    @media (max-width: 1024px) {
-      body { background-attachment: scroll; }
-    }
+    @media (max-width: 1024px) { body { background-attachment: scroll; } }
 
     .overlay {
       background-color: rgba(0, 0, 0, 0.55);
@@ -34,7 +32,7 @@
       justify-content: center;
     }
 
-    /* Texto: versión aprobada */
+    /* Texto: versión final aprobada */
     h1 {
       color: #fff8e1;
       margin: 0 0 14px;
@@ -42,47 +40,46 @@
       font-weight: 700;
       font-size: clamp(26px, 6vw, 42px);
     }
-
     p {
       font-size: clamp(16px, 4vw, 20px);
       line-height: 1.25;
       margin: 0 0 20px;
     }
 
-    /* Banderas (48px como al principio) */
+    /* Banderas 48px + onda realista */
     .flags { margin-top: 10px; }
+
     .flags a {
       margin: 0 15px;
       display: inline-block;
-      font-size: 48px;
+      font-size: 48px;               /* tamaño original */
       text-decoration: none;
+      will-change: transform, filter;
       transition: transform 0.2s ease-in-out;
-      will-change: transform;
-      transform-origin: 50% 100%; /* anclar en la “asta” imaginaria */
-      animation: wave 2.2s ease-in-out infinite;
-      /* sutil sombra para “separarlas” del fondo */
-      filter: drop-shadow(0 1px 0 rgba(0,0,0,.15));
+      transform-origin: 0% 50%;      /* “asta” al lado izquierdo */
+      filter: url(#flagWaveMedium);  /* filtro SVG para “flameo” realista */
+      animation: sway 2.4s ease-in-out infinite;
     }
     .flags a:hover { transform: scale(1.08); }
 
-    /* Desfase para efecto natural */
-    .flags a.flag-1 { animation-delay: 0s;   }
-    .flags a.flag-2 { animation-delay: .25s; }
-    .flags a.flag-3 { animation-delay: .5s;  }
-    .flags a.flag-4 { animation-delay: .75s; }
+    /* Desfase para que no se muevan idénticas */
+    .flags a.flag-1 { animation-delay: 0s;    }
+    .flags a.flag-2 { animation-delay: .18s;  }
+    .flags a.flag-3 { animation-delay: .36s;  }
+    .flags a.flag-4 { animation-delay: .54s;  }
 
-    /* Animación de “flameo” (balanceo + vaivén) */
-    @keyframes wave {
-      0%   { transform: rotate(-2deg) translateY(0px); }
-      25%  { transform: rotate(1.5deg) translateY(-2px); }
-      50%  { transform: rotate(2deg) translateY(0px); }
-      75%  { transform: rotate(-1.5deg) translateY(2px); }
-      100% { transform: rotate(-2deg) translateY(0px); }
+    /* Vaivén suave + leve inclinación (refuerza el efecto del filtro) */
+    @keyframes sway {
+      0%   { transform: skewY(0deg) translateY(0px); }
+      25%  { transform: skewY(1deg) translateY(-1px); }
+      50%  { transform: skewY(0.5deg) translateY(0px); }
+      75%  { transform: skewY(-1deg) translateY(1px); }
+      100% { transform: skewY(0deg) translateY(0px); }
     }
 
-    /* Accesibilidad: respeta “reducir movimiento” del sistema */
+    /* Respeta accesibilidad */
     @media (prefers-reduced-motion: reduce) {
-      .flags a { animation: none; }
+      .flags a { animation: none; filter: none; transform: none; }
       .flags a:hover { transform: none; }
     }
 
@@ -94,6 +91,35 @@
   </style>
 </head>
 <body>
+  <!-- Defs SVG para la onda realista -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <!-- “Viento real” medio: desplazamiento moderado y frecuencia horizontal -->
+      <filter id="flagWaveMedium">
+        <!-- Turbulencia de baja octava, orientada en X (horizontal) -->
+        <feTurbulence type="fractalNoise"
+                      baseFrequency="0.008 0.18"
+                      numOctaves="1"
+                      seed="7"
+                      stitchTiles="stitch"
+                      result="noise">
+          <!-- Animación de la “fase” del viento -->
+          <animate attributeName="baseFrequency"
+                   values="0.008 0.18; 0.010 0.20; 0.008 0.18"
+                   dur="2.4s"
+                   repeatCount="indefinite" />
+        </feTurbulence>
+
+        <!-- Mapa de desplazamiento: mueve más en X que en Y para efecto de tela -->
+        <feDisplacementMap in="SourceGraphic"
+                           in2="noise"
+                           scale="6"
+                           xChannelSelector="R"
+                           yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
   <div class="overlay">
     <h1>CAPIFAN – Байыркы жерден жаралып, бүгүнкү даам үчүн жаратылган.
     Кыргызстандын таза маңызы, бүгүн сенин колуңда – даамыңды ойготкон уламыштуу даам.</h1>
